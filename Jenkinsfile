@@ -6,7 +6,7 @@ pipeline {
 	CLUSTER_NAME="nodejs"
         SERVICE_NAME="node_service"
 	TASK_DEFINITION_NAME="admin"
-        DESIRED_COUNT="1"
+        DESIRED_COUNT="2"
         IMAGE_REPO_NAME="nodejs"
         IMAGE_TAG="${env.BUILD_ID}"
 	// AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
