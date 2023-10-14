@@ -11,7 +11,7 @@ pipeline {
         IMAGE_TAG="${env.BUILD_ID}"
 	// AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
  //        AWS_SECRET_KEY="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"    
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "awssecreat"
     }
    
