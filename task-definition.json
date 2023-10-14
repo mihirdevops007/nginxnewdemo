@@ -1,10 +1,10 @@
 {
-    "family": $FAMLI,
+    "family": "Web-app",
     "containerDefinitions": [
         {
-            "image": $REPOSITORY_URI,
-            "name": $NAME,
-	    "essential": true,
+            "image": "543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs",
+            "name": "Web-app",
+            "essential": true,
             "portMappings": [
                 {
                     "containerPort": 3000,
@@ -16,8 +16,8 @@
     "cpu": "256",
     "memory": "512",
     "requiresCompatibilities": [
-             "FARGATE"
+        "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "executionRoleArn":  $ROLE_ARN
+    "executionRoleArn":  "arn:aws:iam::543050024229:instance-profile/JenkinsAccess"
 }
