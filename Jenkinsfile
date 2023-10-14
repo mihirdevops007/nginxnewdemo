@@ -4,7 +4,7 @@ pipeline {
         AWS_ACCOUNT_ID="543050024229"
         AWS_DEFAULT_REGION="ap-northeast-1" 
 	CLUSTER_NAME="nodejs"
-        SERVICE_NAME="nodejs_service"
+        SERVICE_NAME="node_service"
 	TASK_DEFINITION_NAME="admin"
         DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nodejs"
