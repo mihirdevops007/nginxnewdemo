@@ -39,13 +39,14 @@ pipeline {
     stage('Pushing to ECR') {
     steps {
         script {
-          docker.withRegistry([credentialsId: 'awssecreat', url: "https://${REPOSITORY_URI}"]) { 		
-            //docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}", registryCredential) {
-          dockerImage.push()
+            withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
+                sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
+                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}" // Tag the Docker image
+                sh "docker push ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}" // Push the Docker image to ECR
             }
-          }
         }
-     }
+      }
+   }
 
     stage('Deploy') {
     steps {
