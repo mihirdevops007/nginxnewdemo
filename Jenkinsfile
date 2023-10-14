@@ -52,7 +52,7 @@ pipeline {
     steps {
         withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
             script {
-		chmod +x /var/lib/jenkins/workspace/nginxdemonew/script.sh    
+		sh 'chmod +x /var/lib/jenkins/workspace/nginxdemonew/script.sh'    
                 sh '/var/lib/jenkins/workspace/nginxdemonew/script.sh'
             }
           }
