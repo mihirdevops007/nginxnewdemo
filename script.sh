@@ -3,7 +3,7 @@
 # Set your AWS region and other variables
 TASK_DEFINITION_NAME="adminnew"
 AWS_DEFAULT_REGION="ap-northeast-1"
-IMAGE_TAG="${env.BUILD_ID}"
+#IMAGE_TAG="${env.BUILD_ID}"
 REPOSITORY_URI="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com"
 CLUSTER_NAME="nodejs"
 SERVICE_NAME="nodejs_service"
