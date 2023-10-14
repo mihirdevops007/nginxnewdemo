@@ -41,8 +41,8 @@ pipeline {
         script {
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
-                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}" // Tag the Docker image
-                sh "docker push ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}" // Push the Docker image to ECR
+                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${IMAGE_TAG}" // Tag the Docker image
+                sh "docker push ${REPOSITORY_URI}/${DOCKER_IMAGE_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
             }
         }
       }
