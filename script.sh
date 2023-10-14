@@ -6,7 +6,7 @@ AWS_DEFAULT_REGION="ap-northeast-1"
 #IMAGE_TAG="${env.BUILD_ID}"
 REPOSITORY_URI="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com"
 CLUSTER_NAME="nodejs"
-SERVICE_NAME="nodejs_service"
+SERVICE_NAME="node_service"
 DESIRED_COUNT=1  # Set your desired count
 
 # Get the task definition information
