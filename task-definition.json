@@ -1,9 +1,9 @@
 {
-    "family": FAMILY,
+    "family": t2.medium,
     "containerDefinitions": [
         {
             "image": "REPOSITORY_URI:BUILD_NUMBER",
-            "name": NAME,
+            "name": NginxNew,
 	    "essential": true,
             "portMappings": [
                 {
@@ -19,5 +19,5 @@
              "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "executionRoleArn": ROLE_ARN 
+    "executionRoleArn": arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
 }
