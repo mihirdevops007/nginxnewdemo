@@ -3,14 +3,14 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="543050024229"
         AWS_DEFAULT_REGION="ap-northeast-1" 
-	      CLUSTER_NAME="nodejs"
-	      SERVICE_NAME="nodejs_service"
-	      TASK_DEFINITION_NAME="admin"
-	      DESIRED_COUNT="1"
-        IMAGE_REPO_NAME="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs:latest"
+	CLUSTER_NAME="nodejs"
+        SERVICE_NAME="nodejs_service"
+	TASK_DEFINITION_NAME="adminnew"
+        DESIRED_COUNT="1"
+        IMAGE_REPO_NAME="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com"
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	      registryCredential = "devops"
+	registryCredential = "mihirdevops007"
     }
    
     stages {
