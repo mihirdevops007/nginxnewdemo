@@ -2,7 +2,7 @@
     "family": t2.medium,
     "containerDefinitions": [
         {
-            "image": "REPOSITORY_URI:BUILD_NUMBER",
+            "image": "543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/nginxnew:5",
             "name": NginxNew,
 	    "essential": true,
             "portMappings": [
