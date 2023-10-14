@@ -2,13 +2,13 @@
     "family": t2.medium,
     "containerDefinitions": [
         {
-            "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${${IMAGE_TAG}}",
+            "image": ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${${IMAGE_TAG}},
             "name": NginxNew,
 	    "essential": true,
             "portMappings": [
                 {
                     "containerPort": 3000,
-                    "hostPort": 3000
+                    "hostPort": 80
                 }
             ]
         }
