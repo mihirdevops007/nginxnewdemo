@@ -40,7 +40,7 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-		        def registryCredential = credentials('demo-nodejs')
+		        def registryCredential = credentials('awssecreat')
 			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
                     	dockerImage.push()
                 	}
