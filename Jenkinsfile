@@ -9,8 +9,10 @@ pipeline {
         DESIRED_COUNT="1"
         IMAGE_REPO_NAME="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com"
         IMAGE_TAG="${env.BUILD_ID}"
+	AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
+        AWS_SECRET_KEY="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"    
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	registryCredential = "mihirdevops007"
+	registryCredential = [AWS_ACCESS_KEY,AWS_SECRET_KEY]
     }
    
     stages {
