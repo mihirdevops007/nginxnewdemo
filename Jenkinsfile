@@ -12,7 +12,7 @@ pipeline {
 	// AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
  //        AWS_SECRET_KEY="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"    
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	registryCredential = credentials('demo-nodejs')
+	//registryCredential = credentials('demo-nodejs')
     }
    
     stages {
@@ -40,6 +40,7 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
+		        def registryCredential = credentials('demo-nodejs')
 			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
                     	dockerImage.push()
                 	}
