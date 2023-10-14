@@ -56,6 +56,7 @@ pipeline {
                     sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})"
 		    sh 'chmod +x /var/lib/jenkins/workspace/nginxdemonew/script.sh'    
                     sh '/var/lib/jenkins/workspace/nginxdemonew/script.sh'
+		}	
             }
           }
         }
