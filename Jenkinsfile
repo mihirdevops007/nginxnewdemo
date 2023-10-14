@@ -28,6 +28,7 @@ pipeline {
     // }
         
     // Building Docker images
+    	    
     stage('Building image') {
       steps{
         script {
@@ -35,28 +36,47 @@ pipeline {
         }
       }
     }
-   
-    // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
-     steps{  
-         script {
-	   docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}", + registryCredential) {
-	   //docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:", registryCredential) {
-	   dockerImage.push()
-     	  }
-         }
+    steps {
+        script {
+            docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}", registryCredential) {
+                dockerImage.push()
+            }
+          }
+        }
+     }
+
+    stage('Deploy') {
+    steps {
+        withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+            script {
+                sh './script.sh'
+            }
+          }
         }
       }
+ 
+    // Uploading Docker images into AWS ECR
+   //  stage('Pushing to ECR') {
+   //   steps{  
+   //       script {
+	  //  docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}", + registryCredential) {
+	  //  //docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:", registryCredential) {
+	  //  dockerImage.push()
+   //   	  }
+   //       }
+   //      }
+   //    }
       
-    stage('Deploy') {
-     steps{
-            withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
-                script {
-			sh './script.sh'
-                }
-            } 
-        }
-      }      
+   //  stage('Deploy') {
+   //   steps{
+   //          withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+   //              script {
+			// sh './script.sh'
+   //              }
+   //          } 
+   //      }
+   //    }      
       
     }
 }
