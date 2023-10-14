@@ -7,7 +7,7 @@ pipeline {
         SERVICE_NAME="nodejs_service"
 	TASK_DEFINITION_NAME="adminnew"
         DESIRED_COUNT="1"
-        IMAGE_REPO_NAME="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs"
+        IMAGE_REPO_NAME="nginxnew"
         IMAGE_TAG="${env.BUILD_ID}"
 	// AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
  //        AWS_SECRET_KEY="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"    
