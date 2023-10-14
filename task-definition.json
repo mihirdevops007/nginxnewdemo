@@ -1,9 +1,9 @@
 {
-    "family": t2.medium,
+    "family": $FAMLI,
     "containerDefinitions": [
         {
-            "image": 543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/${${IMAGE_TAG}},
-            "name": NginxNew,
+            "image": $REPOSITORY_URI,
+            "name": $NAME,
 	    "essential": true,
             "portMappings": [
                 {
@@ -19,5 +19,5 @@
              "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "executionRoleArn": arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+    "executionRoleArn":  $ROLE_ARN
 }
