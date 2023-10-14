@@ -5,7 +5,7 @@ pipeline {
         AWS_DEFAULT_REGION="ap-northeast-1" 
 	CLUSTER_NAME="nodejs"
         SERVICE_NAME="nodejs_service"
-	TASK_DEFINITION_NAME="adminnew"
+	TASK_DEFINITION_NAME="admin"
         DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nodejs"
         IMAGE_TAG="${env.BUILD_ID}"
