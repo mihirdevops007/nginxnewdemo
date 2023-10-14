@@ -43,7 +43,7 @@ pipeline {
                 //sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
                 sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
                 sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
-            }
+            //}
         }
       }
    }
