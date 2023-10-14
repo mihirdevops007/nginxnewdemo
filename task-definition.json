@@ -2,7 +2,7 @@
     "family": t2.medium,
     "containerDefinitions": [
         {
-            "image": "543050024229.dkr.ecr.ap-northeast-1.amazonaws.com:5",
+            "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${${IMAGE_TAG}}",
             "name": NginxNew,
 	    "essential": true,
             "portMappings": [
