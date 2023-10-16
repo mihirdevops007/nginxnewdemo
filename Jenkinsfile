@@ -86,9 +86,7 @@ pipeline {
         DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
         IMAGE_TAG="${env.BUILD_ID}"
-        //ECR_IMAGE_VERSION = '2.0.0'
-	// AWS_ACCESS_KEY="AKIAX44CNYUS4ZNJ5RTE"
- //        AWS_SECRET_KEY="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"    
+        //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
     }
