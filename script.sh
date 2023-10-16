@@ -18,8 +18,8 @@ task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK
 if [ $? -eq 0 ]; then
     #ROLE_ARN="arn:aws:iam::543050024229:role/AmazonECSTaskExecutionRolePolicy"  # Hardcoded from your task definition
     ROLE_ARN="arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
-    FAMILY="nginx-app"  # Hardcoded from your task definition
-    NAME="nginx-app"  # Hardcoded from your task definition
+    FAMILY="nginx-dev"  # Hardcoded from your task definition
+    NAME="nginx-dev"  # Hardcoded from your task definition
 
     # Update placeholders in task-definition.json
     sed -i "s#BUILD_NUMBER#$IMAGE_TAG#g" task-definition.json
