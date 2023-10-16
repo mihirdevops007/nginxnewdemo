@@ -1,36 +1,23 @@
 {
     "family": "nginx-app",
-    "taskRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
-    "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
-    "networkMode": "awsvpc",
     "containerDefinitions": [
         {
-            "name": "nginx-app",
             "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
+            "name": "nginx-app",
+            "essential": true,
             "portMappings": [
                 {
-                    "containerPort": 80,
+                    "containerPort": 3000,
                     "hostPort": 80
                 }
             ]
         }
     ],
-    "requiresCompatibilities": ["FARGATE"],
     "cpu": "256",
     "memory": "512",
-    "tags": [],
-    "networkConfiguration": {
-        "awsvpcConfiguration": {
-            "subnets": ["subnet-001784b55d95438b3"], // Replace with your subnet IDs
-            "securityGroups": ["sg-0ceea5b0e1167eeaa"], // Replace with your security group ID
-        }
-    },
-    "placementConstraints": [],
-    "volumes": [],
-    "pidMode": null,
-    "ipcMode": null,
-    "proxyConfiguration": null,
-    "inferenceAccelerators": [],
-    "ephemeralStorage": null,
-    "runtimePlatform": null
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "executionRoleArn":  "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
