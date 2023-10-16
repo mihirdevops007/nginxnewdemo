@@ -1,9 +1,9 @@
 {
-    "family": "nginx-app",
+    "family": "nginx-dev",
     "containerDefinitions": [
         {
             "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
-            "name": "nginx-app",
+            "name": "nginx-dev",
             "essential": true,
             "portMappings": [
                 {
