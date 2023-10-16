@@ -15,7 +15,7 @@ task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
     #ROLE_ARN="arn:aws:iam::543050024229:role/AmazonECSTaskExecutionRolePolicy"  # Hardcoded from your task definition
-    ROLE_ARN="arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+    ROLE_ARN="arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
     FAMILY="nginx-app"  # Hardcoded from your task definition
     NAME="nginx-app"  # Hardcoded from your task definition
 
