@@ -9,7 +9,7 @@ IMAGE_REPO_NAME="nginxdemo"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-service"
-DESIRED_COUNT=2  # Set your desired count
+DESIRED_COUNT=1  # Set your desired count
 
 
 # Get the task definition information
