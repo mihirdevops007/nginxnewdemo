@@ -121,9 +121,9 @@ pipeline {
 	    // sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${ECR_IMAGE_VERSION}" 
      //        sh "docker push ${ECR_REPOSITORY}:${ECR_IMAGE_VERSION}"		
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
-                sh "sudo eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
-                sh "sudo docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
-                sh "sudo docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
+                sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
+                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
+                sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
            }
         }
       }
