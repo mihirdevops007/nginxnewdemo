@@ -7,7 +7,7 @@ AWS_DEFAULT_REGION="us-east-1"
 #IMAGE_TAG="${env.BUILD_ID}"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
-SERVICE_NAME="nginx-v1"
+SERVICE_NAME="nginx-service"
 DESIRED_COUNT=1  # Set your desired count
 
 
