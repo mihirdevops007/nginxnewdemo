@@ -22,7 +22,7 @@
     "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
     "loadBalancers": [  // Add this section to specify the target group and container name
         {
-            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:514523777807:targetgroup/nginxnewTG/620afd49e2a302e4",  // Replace with your actual target group ARN
+            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:514523777807:loadbalancer/app/nginxnewLB/9c3167764074fe4f",  // Replace with your actual target group ARN
             "containerName": "nginx-app",  // Make sure it matches your container name
             "containerPort": 80
         }
