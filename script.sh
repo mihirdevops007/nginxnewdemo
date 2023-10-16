@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set your AWS region and other variables
-TASK_DEFINITION_NAME="nginx-admin"
+TASK_DEFINITION_NAME="nginx-dev"
 AWS_DEFAULT_REGION="us-east-1"
 #IMAGE_TAG="${env.BUILD_ID}"
 REPOSITORY_URI="514523777807.dkr.ecr.us-east-1.amazonaws.com"
