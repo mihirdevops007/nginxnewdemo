@@ -24,7 +24,7 @@
         {
             "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:514523777807:targetgroup/nginxnewTG/620afd49e2a302e4",  // Replace with your actual target group ARN
             "containerName": "nginx-app",  // Make sure it matches your container name
-            "containerPort": 80
+            "containerPort": 80 
         }
     ]
 }
