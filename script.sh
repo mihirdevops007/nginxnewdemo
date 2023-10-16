@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Set your AWS region and other variables
-TASK_DEFINITION_NAME="admin"
-AWS_DEFAULT_REGION="ap-northeast-1"
+TASK_DEFINITION_NAME="nginx-admin"
+AWS_DEFAULT_REGION="us-east-1"
 #IMAGE_TAG="${env.BUILD_ID}"
-REPOSITORY_URI="543050024229.dkr.ecr.ap-northeast-1.amazonaws.com"
-CLUSTER_NAME="nodejs"
-SERVICE_NAME="node_service"
+REPOSITORY_URI="514523777807.dkr.ecr.us-east-1.amazonaws.com"
+CLUSTER_NAME="NginxDemo"
+SERVICE_NAME="nginx-v1"
 DESIRED_COUNT=1  # Set your desired count
 
 # Get the task definition information
@@ -14,9 +14,10 @@ task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK
 
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
-    ROLE_ARN="arn:aws:iam::543050024229:role/AmazonECSTaskExecutionRolePolicy"  # Hardcoded from your task definition
-    FAMILY="Web-app"  # Hardcoded from your task definition
-    NAME="Web-app"  # Hardcoded from your task definition
+    #ROLE_ARN="arn:aws:iam::543050024229:role/AmazonECSTaskExecutionRolePolicy"  # Hardcoded from your task definition
+    ROLE_ARN="arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+    FAMILY="nginx-app"  # Hardcoded from your task definition
+    NAME="nginx-app"  # Hardcoded from your task definition
 
     # Update placeholders in task-definition.json
     sed -i "s#BUILD_NUMBER#$IMAGE_TAG#g" task-definition.json
