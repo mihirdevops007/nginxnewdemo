@@ -82,7 +82,7 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-1" 
 	CLUSTER_NAME="NginxDemo"
         SERVICE_NAME="nginx-service"
-	TASK_DEFINITION_NAME="nginx-dev"
+	TASK_DEFINITION_NAME="nginx-stage"
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
         IMAGE_TAG="${env.BUILD_ID}"
