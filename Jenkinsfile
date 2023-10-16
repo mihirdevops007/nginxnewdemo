@@ -83,7 +83,7 @@ pipeline {
 	CLUSTER_NAME="NginxDemo"
         SERVICE_NAME="nginx-service"
 	TASK_DEFINITION_NAME="nginx-dev"
-        DESIRED_COUNT="1"
+        //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
         IMAGE_TAG="${env.BUILD_ID}"
         //ECR_IMAGE_VERSION = '2.0.0' 
