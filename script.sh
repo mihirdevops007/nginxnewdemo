@@ -2,7 +2,7 @@
 
 # Set your AWS region and other variables
 AWS_ACCOUNT_ID="514523777807"
-TASK_DEFINITION_NAME="nginx-stage"
+TASK_DEFINITION_NAME="nginx-dev"
 AWS_DEFAULT_REGION="us-east-1"
 IMAGE_REPO_NAME="nginxdemo"
 #IMAGE_TAG="${env.BUILD_ID}"
