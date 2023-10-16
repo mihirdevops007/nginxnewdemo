@@ -81,7 +81,7 @@ pipeline {
         AWS_ACCOUNT_ID="514523777807"
         AWS_DEFAULT_REGION="us-east-1" 
 	CLUSTER_NAME="NginxDemo"
-        SERVICE_NAME="nginx-v1"
+        SERVICE_NAME="nginx-service"
 	TASK_DEFINITION_NAME="nginx-dev"
         DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
