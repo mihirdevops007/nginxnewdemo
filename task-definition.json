@@ -1,14 +1,14 @@
 {
-    "family": "Web-app",
+    "family": "nginx-app",
     "containerDefinitions": [
         {
-            "image": "543050024229.dkr.ecr.ap-northeast-1.amazonaws.com/nodejs",
-            "name": "Web-app",
+            "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
+            "name": "nginx-app",
             "essential": true,
             "portMappings": [
                 {
                     "containerPort": 3000,
-                    "hostPort": 3000
+                    "hostPort": 80
                 }
             ]
         }
@@ -19,5 +19,5 @@
         "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "executionRoleArn":  "arn:aws:iam::543050024229:role/ecsTaskExecutionRole"
+    "executionRoleArn":  "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
