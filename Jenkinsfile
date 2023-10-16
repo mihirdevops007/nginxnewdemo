@@ -117,9 +117,9 @@ pipeline {
     stage('Pushing to ECR') {
     steps {
         script {
-	    sh "sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 514523777807.dkr.ecr.us-east-1.amazonaws.com" 	
-	    sh "sudo docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${ECR_IMAGE_VERSION}" 
-            sh "sudo docker push ${ECR_REPOSITORY}:${ECR_IMAGE_VERSION}"		
+	    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 514523777807.dkr.ecr.us-east-1.amazonaws.com" 	
+	    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${ECR_IMAGE_VERSION}" 
+            sh "docker push ${ECR_REPOSITORY}:${ECR_IMAGE_VERSION}"		
             // withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
             //     sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})" // Authenticate with ECR
             //     sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
