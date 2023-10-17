@@ -12,6 +12,7 @@ pipeline {
         //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
+	IMAGE_VERSION = "latest-v1"    
     }
     stages {
 
@@ -40,8 +41,10 @@ pipeline {
         script {		
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
-                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
-                sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
+                sh "docker tag ${IMAGE_NAME}:${IMAGE_VERSION} ${ECR_REPOSITORY}:${IMAGE_TAG}"
+		sh "sudo docker push ${ECR_REPOSITORY}:${IMAGE_TAG}"
+		//sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
+                //sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Push the Docker image to ECR
            }
         }
       }
