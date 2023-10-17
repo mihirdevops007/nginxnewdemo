@@ -8,7 +8,9 @@ REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-service"
 DESIRED_COUNT=1  # Set your desired count
-IMAGE_TAG="latest"  # Set the desired image tag
+IMAGE_TAG="${env.BUILD_ID}"  # Set the desired image tag
+task_definition_info="/var/lib/jenkins/workspace/nginxdemo/task_definition.json"
+
 
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
