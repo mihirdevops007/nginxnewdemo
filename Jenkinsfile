@@ -9,7 +9,7 @@ pipeline {
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
         IMAGE_TAG = "${env.BUILD_ID}"
-	IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"    
+	//IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"    
         //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
@@ -39,17 +39,31 @@ pipeline {
 	    //get-login --no-include-email
     stage('Pushing to ECR') {
     steps {
-        script {		
+        script {
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
+                def timestamp = new Date().format('yyyyMMddHHmmss') // Generate a timestamp
+                def fullTag = "${IMAGE_TAG}-${timestamp}" // Combine the base tag with the timestamp
+
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
-  //               sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${ECR_REPOSITORY}:${IMAGE_TAG}"
-		// sh "sudo docker push ${ECR_REPOSITORY}:${IMAGE_TAG}"
-		sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
-                sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Push the Docker image to ECR
-           }
+                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Tag the Docker image
+                sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Push the Docker image to ECR with a unique tag
+            }
         }
-      }
-   }
+    }
+  }	    
+  //   stage('Pushing to ECR') {
+  //   steps {
+  //       script {		
+  //           withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
+  //               sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
+  // //               sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${ECR_REPOSITORY}:${IMAGE_TAG}"
+		// // sh "sudo docker push ${ECR_REPOSITORY}:${IMAGE_TAG}"
+		// sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
+  //               sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Push the Docker image to ECR
+  //          }
+  //       }
+  //     }
+  //  }
 
     stage('Deploy') {
     steps {
