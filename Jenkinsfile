@@ -85,7 +85,7 @@ pipeline {
 	TASK_DEFINITION_NAME="nginx-dev"
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
-        IMAGE_TAG="latest-v1"
+        IMAGE_TAG="${env.BUILD_ID}"
         //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
