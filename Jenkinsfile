@@ -8,7 +8,7 @@ pipeline {
 	TASK_DEFINITION_NAME="nginx-sample"
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
-        //IMAGE_TAG = "nginx-sample-${new Date().format('yyyyMMddHHmmss')}"
+        IMAGE_TAG = "nginx-sample-${new Date().format('yyyyMMddHHmmss')}"
         //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
@@ -38,10 +38,6 @@ pipeline {
     stage('Pushing to ECR') {
     steps {
         script {
-            // Generate a unique timestamp-based tag for each image
-            def timestamp = new Date().format('yyyyMMddHHmmss')
-            def IMAGE_TAG = "nginx-sample-${timestamp}"	
-            // Build and push the Docker image with the unique tag
             dockerImage = docker.build("${IMAGE_REPO_NAME}:${IMAGE_TAG}")		
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
