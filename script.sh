@@ -7,10 +7,7 @@ AWS_DEFAULT_REGION="us-east-1"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-service"
-DESIRED_COUNT=1  # Set your desired count
-#IMAGE_TAG="${env.BUILD_ID}"  # Set the desired image tag
-task_definition_info="/var/lib/jenkins/workspace/nginxdemo/task_definition.json"
-
+DESIRED_COUNT=1
 
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
@@ -23,14 +20,13 @@ if [ $? -eq 0 ]; then
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
 
     # Update placeholders in task-definition.json
-    #sed -i "s#BUILD_NUMBER#$IMAGE_TAG#g" task-definition.json
     sed -i "s#REPOSITORY_URI#$REPOSITORY_URI#g" task-definition.json
     sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
     sed -i "s#NAME#$NAME#g" task-definition.json
 
     # Register the updated task definition
-    aws ecs register-task-definition --cli-input-json file://task-definition.json --region="$AWS_DEFAULT_REGION"
+    aws ecs register-task-definition --cli-input-json file://task-definition.json --region "$AWS_DEFAULT_REGION"
 
     # Get the new revision number
     REVISION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION" | jq -r '.taskDefinition.revision')
@@ -47,7 +43,6 @@ if [ $? -eq 0 ]; then
 else
     echo "Task definition not found. Please check if it exists and the name is correct."
 fi
-
 # #!/bin/bash
 
 # # Set your AWS region and other variables
