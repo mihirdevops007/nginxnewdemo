@@ -8,7 +8,7 @@ pipeline {
 	TASK_DEFINITION_NAME="nginx-sample"
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nginxdemo"
-        IMAGE_TAG = "nginx-sample:${new Date().format('yyyyMMddHHmmss')}"
+        IMAGE_TAG = "nginx-sample-${new Date().format('yyyyMMddHHmmss')}"
         //ECR_IMAGE_VERSION = '2.0.0' 
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	registryCredential = "nginxaws"
