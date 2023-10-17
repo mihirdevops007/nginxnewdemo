@@ -43,9 +43,9 @@ pipeline {
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 def timestamp = new Date().format('yyyyMMddHHmmss') // Generate a timestamp
                 def fullTag = "${IMAGE_TAG}-${timestamp}" // Combine the base tag with the timestamp
-
+                def imageId = dockerImage.id 
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
-                sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Tag the Docker image
+                sh "docker tag ${imageId} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Tag the Docker image
                 sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Push the Docker image to ECR with a unique tag
             }
         }
