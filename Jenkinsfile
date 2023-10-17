@@ -7,7 +7,7 @@ pipeline {
         SERVICE_NAME="nginx-samplenew"
 	TASK_DEFINITION_NAME="nginx-sample"
         //DESIRED_COUNT="1"
-        IMAGE_REPO_NAME="nginxdemo"
+        IMAGE_REPO_NAME="demo"
         IMAGE_TAG = "${env.BUILD_ID}"
 	//IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"    
         //ECR_IMAGE_VERSION = '2.0.0' 
