@@ -2,7 +2,7 @@
 
 # Set your AWS region and other variables
 AWS_ACCOUNT_ID="514523777807"
-TASK_DEFINITION_NAME="nginx-dev"
+TASK_DEFINITION_NAME="nginx-sample"
 AWS_DEFAULT_REGION="us-east-1"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
