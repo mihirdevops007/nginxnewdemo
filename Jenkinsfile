@@ -8,10 +8,11 @@ pipeline {
 	TASK_DEFINITION_NAME="nginx-sample"
         //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="demo"
-        IMAGE_TAG = "${env.BUILD_ID}"
+        //IMAGE_TAG = "${env.BUILD_ID}"
 	//IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"    
         //ECR_IMAGE_VERSION = '2.0.0' 
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+        //REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+	ECR_REPOSITORY_URI = "${REPOSITORY_URI}/${IMAGE_REPO_NAME}"    
 	registryCredential = "nginxaws"
 	//IMAGE_VERSION = "latest-v1"    
     }
@@ -28,29 +29,35 @@ pipeline {
     // }
         
     // Building Docker images
-    	    
     stage('Building image') {
-      steps{
-        script {
-          dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-        }
+    steps {
+      script {
+        IMAGE_TAG = "${new Date().format('yyyyMMddHHmmss')}"
+        dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
       }
+     }
     }
+ 	    
+    // stage('Building image') {
+    //   steps{
+    //     script {
+    //       dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+    //     }
+    //   }
+    // }
 	    //get-login --no-include-email
     stage('Pushing to ECR') {
     steps {
-        script {
-            withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
-                def timestamp = new Date().format('yyyyMMddHHmmss') // Generate a timestamp
-                def fullTag = "${IMAGE_TAG}-${timestamp}" // Combine the base tag with the timestamp
-                def imageId = dockerImage.id 
-                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
-                sh "docker tag ${imageId} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Tag the Docker image
-                sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${fullTag}" // Push the Docker image to ECR with a unique tag
-            }
+      script {
+        withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
+          sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}"
+          sh "docker tag ${dockerImage.id} ${ECR_REPOSITORY_URI}:${IMAGE_TAG}"
+          sh "docker push ${ECR_REPOSITORY_URI}:${IMAGE_TAG}"
         }
+      }
     }
-  }	    
+  }
+	    
   //   stage('Pushing to ECR') {
   //   steps {
   //       script {		
