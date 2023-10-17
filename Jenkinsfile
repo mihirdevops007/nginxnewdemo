@@ -10,8 +10,7 @@ pipeline {
         IMAGE_REPO_NAME="demo"
         //IMAGE_TAG = "${env.BUILD_ID}"
 	//IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"    
-        //ECR_IMAGE_VERSION = '2.0.0' 
-	IMAGE_TAG = "${new Date().format('yyyyMMddHHmmss')}"    
+        //ECR_IMAGE_VERSION = '2.0.0'    
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 	ECR_REPOSITORY_URI = "${REPOSITORY_URI}/${IMAGE_REPO_NAME}"    
 	registryCredential = "nginxaws"
@@ -49,7 +48,8 @@ pipeline {
 	    //get-login --no-include-email
     stage('Build Docker image and Pushing to ECR') {
     steps {
-      script {    
+      script {  
+	IMAGE_TAG = "${new Date().format('yyyyMMddHHmmss')}"       
         withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
           sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}"
           sh "dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
