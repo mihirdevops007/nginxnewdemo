@@ -1,23 +1,20 @@
 {
-    "family": "nginx-dev",
-    "containerDefinitions": [
+  "family": "nginx-dev",
+  "containerDefinitions": [
+    {
+      "name": "nginxrepo",
+      "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
+      "essential": true,
+      "portMappings": [
         {
-            "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
-            "name": "nginxrepo",
-            "essential": true,
-            "portMappings": [
-                {
-                    "containerPort": 80,
-                    "hostPort": 80
-                }
-            ]
+          "containerPort": 80,
+          "hostPort": 80
         }
-    ],
-    "cpu": 1,
-    "memory": 1024,
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "executionRoleArn":  "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
+      ]
+    }
+  ],
+  "cpu": "256",     // Updated CPU value (in CPU units)
+  "memory": "512",  // Updated memory value (in MiB)
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
 }
