@@ -8,7 +8,7 @@ REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-service"
 DESIRED_COUNT=1  # Set your desired count
-IMAGE_TAG="${env.BUILD_ID}"  # Set the desired image tag
+#IMAGE_TAG="${env.BUILD_ID}"  # Set the desired image tag
 task_definition_info="/var/lib/jenkins/workspace/nginxdemo/task_definition.json"
 
 
@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
 
     # Update placeholders in task-definition.json
-    sed -i "s#BUILD_NUMBER#$IMAGE_TAG#g" task-definition.json
+    #sed -i "s#BUILD_NUMBER#$IMAGE_TAG#g" task-definition.json
     sed -i "s#REPOSITORY_URI#$REPOSITORY_URI#g" task-definition.json
     sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
