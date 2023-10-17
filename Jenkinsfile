@@ -37,8 +37,7 @@ pipeline {
 	    //get-login --no-include-email
     stage('Pushing to ECR') {
     steps {
-        script {
-            dockerImage = docker.build("${IMAGE_REPO_NAME}:${IMAGE_TAG}")		
+        script {		
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}" // Authenticate with ECR
                 sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_TAG}" // Tag the Docker image
