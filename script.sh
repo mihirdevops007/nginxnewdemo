@@ -6,7 +6,7 @@ TASK_DEFINITION_NAME="nginx-sample"
 AWS_DEFAULT_REGION="us-east-1"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 CLUSTER_NAME="NginxDemo"
-SERVICE_NAME="nginx-service"
+SERVICE_NAME="nginx-samplenew"
 DESIRED_COUNT=1
 
 # Get the task definition information
