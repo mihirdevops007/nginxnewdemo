@@ -48,10 +48,10 @@ pipeline {
 	    //get-login --no-include-email
     stage('Build Docker image and Pushing to ECR') {
     steps {
-      script {  
-	IMAGE_TAG = "${new Date().format('yyyyMMddHHmmss')}"       
+      script {        
         withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
           sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}"
+	  sh "IMAGE_TAG = "${new Date().format('yyyyMMddHHmmss')}"	
           sh "dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
           sh "docker tag ${dockerImage.id} ${ECR_REPOSITORY_URI}:${IMAGE_TAG}"
           sh "docker push ${ECR_REPOSITORY_URI}:${IMAGE_TAG}"
