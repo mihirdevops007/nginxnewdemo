@@ -3,6 +3,7 @@
 # Set your AWS region and other variables
 AWS_ACCOUNT_ID="514523777807"
 TASK_DEFINITION_NAME="nginx-dev"
+TASK_DEFINITION_ARN="arn:aws:ecs:us-east-1:514523777807:task-definition/nginx-dev:$REVISION"
 AWS_DEFAULT_REGION="us-east-1"
 IMAGE_REPO_NAME="nginxdemo"
 #IMAGE_TAG="${env.BUILD_ID}"
@@ -41,7 +42,7 @@ if [ $? -eq 0 ]; then
 
         # Update the service to use the new task definition
         #cat $TASK_DEF_FILE  | sudo jq '.containerDefinitions[0].image = "'"$ECR_REPOSITORY"':'"$ECR_IMAGE_VERSION"'"' > temp.json> temp.json && sudo mv temp.json $TASK_DEF_FILE
-        aws ecs update-service --cluster "$CLUSTER_NAME" --service "$SERVICE_NAME" --task-definition "$TASK_DEFINITION_NAME:$REVISION" --desired-count "$DESIRED_COUNT"
+        aws ecs update-service --cluster "$CLUSTER_NAME" --service "$SERVICE_NAME" --task-definition "$TASK_DEFINITION_ARN:$REVISION" --desired-count "$DESIRED_COUNT"
     else
         echo "Failed to obtain a valid task definition revision number."
     fi
