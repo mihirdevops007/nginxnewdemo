@@ -53,17 +53,17 @@ pipeline {
 
     stage('Deploy') {
     steps {
-        withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
-            script {
-	        // withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
-         //            sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})"
-		    sh 'chmod +x /var/lib/jenkins/workspace/nginxdemo/script.sh'    
-                    sh '/var/lib/jenkins/workspace/nginxdemo/script.sh'
-		//}	
+        //withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+          //  script {
+	        withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
+                 sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})"
+		         sh 'chmod +x /var/lib/jenkins/workspace/nginxdemo/script.sh'    
+                 sh '/var/lib/jenkins/workspace/nginxdemo/script.sh'
+		      }	
             }
           }
-        }
-      }
+        //}
+      //}
  
     // Uploading Docker images into AWS ECR
    //  stage('Pushing to ECR') {
