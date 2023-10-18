@@ -6,15 +6,11 @@ pipeline {
 	    CLUSTER_NAME="NginxDemo"
         SERVICE_NAME="nginx-samplenew"
 	    TASK_DEFINITION_NAME="nginx-sample"
-        //DESIRED_COUNT="1"
         IMAGE_REPO_NAME="demo"
-        IMAGE_TAG = "${env.BUILD_ID}"
-        IMAGE_VERSION = "latest-${IMAGE_TAG}-${new Date().format('yyyyMMddHHmmss')}"    
-        //ECR_IMAGE_VERSION = '2.0.0'    
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-	//ECR_REPOSITORY_URI = "${REPOSITORY_URI}/${IMAGE_REPO_NAME}"    
+        IMAGE_TAG = "${env.BUILD_ID}-${BUILD_NUMBER}"
+        IMAGE_VERSION = "latest-${IMAGE_TAG}-${new Date().format('yyyyMMddHHmmss')}"      
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"   
 	    registryCredential = "nginxaws"
-	//IMAGE_VERSION = "latest-v1"    
     }
     stages {
 
