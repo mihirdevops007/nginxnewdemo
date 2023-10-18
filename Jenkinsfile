@@ -7,7 +7,7 @@ pipeline {
         SERVICE_NAME = "nginx-samplenew"
         TASK_DEFINITION_NAME = "nginx-sample"
         IMAGE_REPO_NAME = "demo"
-        IMAGE_VERSION = "latest-${new Date().format('yyyyMMddHHmmss')}"
+        IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
         registryCredential = "nginxaws"
     }
