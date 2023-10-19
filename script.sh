@@ -9,6 +9,7 @@ CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-samplenew"
 DESIRED_COUNT=1
 IMAGE_REPO_NAME="nginxdemo"
+TASK_DEFINITION_FILE="/var/lib/jenkins/workspace/nginxdemo/task-definition.json"
 
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
@@ -30,12 +31,12 @@ if [ $? -eq 0 ]; then
     sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
     #sed -i "s#REPOSITORY_URI#$IMAGE#g" task-definition.json    
-    sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_URL|g" your-task-definition.json
+    sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_URL|g" task-definition.json
     sed -i "s#NAME#$IMAGE_REPO_NAME#g" task-definition.json
     
   
     # Register the updated task definition
-    aws ecs register-task-definition --cli-input-json file://task-definition.json --region "$AWS_DEFAULT_REGION"
+    aws ecs register-task-definition --cli-input-json file://${TASK_DEFINITION_FILE} --region "$AWS_DEFAULT_REGION"
 
     # Get the new revision number
     REVISION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION" | jq -r '.taskDefinition.revision')
