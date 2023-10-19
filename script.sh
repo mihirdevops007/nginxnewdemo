@@ -15,17 +15,17 @@ task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
     # Extract the execution role ARN and family from the task definition
+    ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
     IAMGE=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
-    ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
-
+    
     # Update placeholders in task-definition.json
+    sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
     sed -i "s#NAME#$NAME#g" task-definition.json
     sed -i "s#REPOSITORY_URI#$IMAGE#g" task-definition.json
-    sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
-
+  
     # Register the updated task definition
     aws ecs register-task-definition --cli-input-json file://task-definition.json --region "$AWS_DEFAULT_REGION"
 
