@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
     # Extract the execution role ARN and family from the task definition
     ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
-    IMAGE_TAG_PLACEHOLDER=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
+    LATEST_IMAGE_URL=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
 
     
