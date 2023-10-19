@@ -28,7 +28,7 @@ pipeline {
         script {
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}/${IMAGE_REPO_NAME}" 
-                dockerImage = sh "docker build -t "${IMAGE_REPO_NAME}" ."
+                dockerImage = docker.build "${IMAGE_REPO_NAME}"
 	      }         
 	    }
           }
