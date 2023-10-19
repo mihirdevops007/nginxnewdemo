@@ -15,7 +15,7 @@ TASK_DEFINITION_FILE="/var/lib/jenkins/workspace/nginxdemo/task-definition.json"
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
 
 # List images in the repository, filter out null values for imagePushedAt, and get the imageDigest of the latest image
-LATEST_IMAGE_DIGEST=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --output text --region $AWS_DEFAULT_REGION)
+LATEST_IMAGE_TAG=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --query 'imageDetails | [?imagePushedAt].[imageTags]' --output text --region $AWS_DEFAULT_REGION | tr '\t' '\n' | sort -r | head -n 1)
 # Retrieve the URL of the latest image
 LATEST_IMAGE_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME@$LATEST_IMAGE_DIGEST"
 # Check if the task definition exists and proceed if it does
