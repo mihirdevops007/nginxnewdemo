@@ -14,21 +14,18 @@ TASK_DEFINITION_FILE="/var/lib/jenkins/workspace/nginxdemo/task-definition.json"
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
 
-# Retrieve the latest image tag from ECR
-# Retrieve the latest image URL from ECR
-
+# List images in the repository, filter out null values for imagePushedAt, and get the imageDigest of the latest image
+LATEST_IMAGE_DIGEST=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --output text --region $AWS_DEFAULT_REGION)
+# Retrieve the URL of the latest image
+LATEST_IMAGE_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME@$LATEST_IMAGE_DIGEST"
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
     # Extract the execution role ARN and family from the task definition
     ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
-    #IMAGE_TAG_PLACEHOLDER=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
+    IMAGE_TAG_PLACEHOLDER=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
-    # List images in the repository, filter out null values for imagePushedAt, and get the imageDigest of the latest image
-    LATEST_IMAGE_DIGEST=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --output text --region $AWS_DEFAULT_REGION)
 
-    # Retrieve the URL of the latest image
-    LATEST_IMAGE_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME@$LATEST_IMAGE_DIGEST"
     
     # Update placeholders in task-definition.json
     
