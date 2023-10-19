@@ -3,14 +3,14 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="514523777807"
         AWS_DEFAULT_REGION="us-east-1" 
-	    CLUSTER_NAME="NginxDemo"
+	      CLUSTER_NAME="NginxDemo"
         SERVICE_NAME="nginx-samplenew"
-	    TASK_DEFINITION_NAME="nginx-sample"
+	      TASK_DEFINITION_NAME="nginx-sample"
         IMAGE_REPO_NAME="nginxdemo"
         IMAGE_TAG = "${env.BUILD_ID}-${BUILD_NUMBER}"
         IMAGE_VERSION = "latest-${IMAGE_TAG}-${new Date().format('yyyyMMddHHmmss')}"      
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"   
-	    registryCredential = "nginxaws"
+	      registryCredential = "nginxaws"
     }
     stages {
 
@@ -22,9 +22,7 @@ pipeline {
 	   //      sh 'npm test -- --watchAll=false'
     //     }
     //   }
-    // }
-        
- 	    
+    // }    
     stage('Building image') {
       steps{
         script {
@@ -44,7 +42,7 @@ pipeline {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}/${IMAGE_REPO_NAME}" // Authenticate with ECR
   //               sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${ECR_REPOSITORY}:${IMAGE_TAG}"
 		// sh "sudo docker push ${ECR_REPOSITORY}:${IMAGE_TAG}" 
-		        sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
+		            sh "docker tag ${dockerImage.id} ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
                 sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Push the Docker image to ECR
            }
         }
@@ -57,7 +55,7 @@ pipeline {
           //  script {
 	        withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                  sh "eval \$(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})"
-		         sh 'chmod +x /var/lib/jenkins/workspace/nginxdemo/script.sh'    
+		             sh 'chmod +x /var/lib/jenkins/workspace/nginxdemo/script.sh'    
                  sh '/var/lib/jenkins/workspace/nginxdemo/script.sh'
 		      }	
             }
