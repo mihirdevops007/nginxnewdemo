@@ -8,20 +8,20 @@ REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-samplenew"
 DESIRED_COUNT=1
-LATEST_IMAGE_TAG="latest"
-IMAGE_REPO_NAME="nginxdemo"
+IMAGE_REPO_NAME="nginxrepo"
 
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
 
 # Retrieve the latest image tag from ECR
-
+# Retrieve the latest image URL from ECR
+LATEST_IMAGE_URL=$(aws ecr describe-images --repository-name $ECR_REPO_NAME --query 'images | [0].imageUri' --output text --region $AWS_REGION)
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
     # Extract the execution role ARN and family from the task definition
     ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
-    REPOSITORY_URI=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
+    #REPOSITORY_URI=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
     
     
@@ -30,8 +30,8 @@ if [ $? -eq 0 ]; then
     sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
     #sed -i "s#REPOSITORY_URI#$IMAGE#g" task-definition.json    
-    sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_TAG|g" your-task-definition.json
-    sed -i "s#NAME#$REPOSITORY_URI#g" task-definition.json
+    sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_URL|g" your-task-definition.json
+    sed -i "s#NAME#$IMAGE_REPO_NAME#g" task-definition.json
     
   
     # Register the updated task definition
@@ -52,6 +52,7 @@ if [ $? -eq 0 ]; then
 else
     echo "Task definition not found. Please check if it exists and the name is correct."
 fi
+
 
 
 # #!/bin/bash
