@@ -16,15 +16,15 @@ task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK
 
 # Retrieve the latest image tag from ECR
 # Retrieve the latest image URL from ECR
-LATEST_IMAGE_URL=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --query 'images | [0].imageUri' --output text --region $AWS_REGION)
+
 # Check if the task definition exists and proceed if it does
 if [ $? -eq 0 ]; then
     # Extract the execution role ARN and family from the task definition
     ROLE_ARN=$(echo "$task_definition_info" | jq -r '.taskDefinition.executionRoleArn')
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
-    #REPOSITORY_URI=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
+    #IMAGE_TAG_PLACEHOLDER=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
-    
+    LATEST_IMAGE_URL=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --query 'images | [0].imageUri' --output text --region $AWS_REGION)
     
     # Update placeholders in task-definition.json
     
