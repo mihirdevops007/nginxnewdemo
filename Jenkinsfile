@@ -7,7 +7,7 @@ pipeline {
         SERVICE_NAME="nginx-samplenew"
 	TASK_DEFINITION_NAME="nginx-sample"
         IMAGE_REPO_NAME="nginxdemo"
-        IMAGE_TAG = "${env.BUILD_ID}"
+        IMAGE_TAG = "${env.BUILD_NAME}"
         IMAGE_VERSION = "${new Date().format('yyyyMMddHHmmss')}"      
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"   
 	registryCredential = "nginxaws"
@@ -28,7 +28,7 @@ pipeline {
         script {
             withAWS(region: "${AWS_DEFAULT_REGION}", credentials: registryCredential) {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}/${IMAGE_REPO_NAME}" 
-                dockerimage = docker.build "${IMAGE_REPO_NAME}"
+                dockerimage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
 	      }         
 	    }
           }
@@ -42,7 +42,7 @@ pipeline {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REPOSITORY_URI}/${IMAGE_REPO_NAME}" // Authenticate with ECR
   //               sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${ECR_REPOSITORY}:${IMAGE_TAG}"
 		// sh "sudo docker push ${ECR_REPOSITORY}:${IMAGE_TAG}" 
-		sh "docker tag ${dockerimage}:${IMAGE_VERSION } ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
+		sh "docker tag ${dockerimage.name}:${IMAGE_VERSION } ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Tag the Docker image
                 sh "docker push ${REPOSITORY_URI}/${IMAGE_REPO_NAME}:${IMAGE_VERSION }" // Push the Docker image to ECR
            }
         }
