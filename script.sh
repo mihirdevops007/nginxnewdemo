@@ -24,7 +24,11 @@ if [ $? -eq 0 ]; then
     FAMILY=$(echo "$task_definition_info" | jq -r '.taskDefinition.family')
     #IMAGE_TAG_PLACEHOLDER=$(echo "$task_definition_info" | jq -r '.taskDefinition.image')
     NAME=$(echo "$task_definition_info" | jq -r '.taskDefinition.containerDefinitions[0].name')
-    LATEST_IMAGE_URL=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --query 'images | [0].imageUri' --output text --region $AWS_REGION)
+    # List images in the repository, filter out null values for imagePushedAt, and get the imageDigest of the latest image
+    LATEST_IMAGE_DIGEST=$(aws ecr describe-images --repository-name $IMAGE_REPO_NAME --output text --region $AWS_DEFAULT_REGION)
+
+    # Retrieve the URL of the latest image
+    LATEST_IMAGE_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME@$LATEST_IMAGE_DIGEST"
     
     # Update placeholders in task-definition.json
     
