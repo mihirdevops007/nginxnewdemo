@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "nginxrepo",
-      "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo",
+      "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo:latest-143-143-20231018132224",
       "essential": true,
       "portMappings": [
         {
