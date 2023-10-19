@@ -34,8 +34,9 @@ if [ $? -eq 0 ]; then
     
     sed -i "s#ROLE_ARN#$ROLE_ARN#g" task-definition.json
     sed -i "s#FAMILY#$FAMILY#g" task-definition.json
-    #sed -i "s#REPOSITORY_URI#$IMAGE#g" task-definition.json    
-    sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_URL|g" task-definition.json
+    #sed -i "s#REPOSITORY_URI#$IMAGE#g" task-definition.json
+    sed -i "s#IMAGE_TAG_PLACEHOLDER#$LATEST_IMAGE_URL#g" task-definition.json
+    #sed -i "s|IMAGE_TAG_PLACEHOLDER|$LATEST_IMAGE_URL|g" task-definition.json
     sed -i "s#NAME#$IMAGE_REPO_NAME#g" task-definition.json
     
   
