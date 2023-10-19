@@ -8,7 +8,7 @@ REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-samplenew"
 DESIRED_COUNT=1
-IMAGE_REPO_NAME="nginxrepo"
+IMAGE_REPO_NAME="nginxdemo"
 
 # Get the task definition information
 task_definition_info=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "$AWS_DEFAULT_REGION")
