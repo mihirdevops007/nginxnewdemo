@@ -7,7 +7,7 @@ AWS_DEFAULT_REGION="us-east-1"
 REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_VERSION}"
 CLUSTER_NAME="NginxDemo"
 SERVICE_NAME="nginx-samplenew"
-DESIRED_COUNT=1
+DESIRED_COUNT=2
 IMAGE_REPO_NAME="nginxdemo"
 TASK_DEFINITION_FILE="/var/lib/jenkins/workspace/nginxdemo/task-definition.json"
 
