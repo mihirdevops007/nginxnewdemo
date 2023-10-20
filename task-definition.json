@@ -1,5 +1,5 @@
 {
-  "family": "nginx-sample",
+  "family": "nginx-samplenew",
   "containerDefinitions": [
     {
       "name": "nginxrepo",
