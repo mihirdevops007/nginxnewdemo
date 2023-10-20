@@ -1,5 +1,5 @@
 {
-  "family": "nginx-samplenew",
+  "family": "nginx-sample",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
   "requiresCompatibilities": ["FARGATE"],
