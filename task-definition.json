@@ -1,10 +1,5 @@
 {
   "family": "nginx-samplenew",
-  "networkMode": "awsvpc",
-  "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
-  "requiresCompatibilities": ["FARGATE"],
-  "cpu": "512",
-  "memory": "1024",
   "containerDefinitions": [
     {
       "name": "nginxrepo",
@@ -17,5 +12,9 @@
         }
       ]
     }
-  ]
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
 }
