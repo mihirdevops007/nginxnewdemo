@@ -14,7 +14,7 @@
     }
   ],
   "cpu": "512",
-  "memory": "512",
+  "memory": "1024",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
 }
