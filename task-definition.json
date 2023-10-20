@@ -1,51 +1,20 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:514523777807:task-definition/mynew-nginx-service:3",
-    "containerDefinitions": [
+  "family": "mynew-nginx-service",
+  "containerDefinitions": [
+    {
+      "name": "nginxrepo",
+      "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo:IMAGE_TAG_PLACEHOLDER",
+      "essential": true,
+      "portMappings": [
         {
-            "name": "nginxrepo",
-            "image": "514523777807.dkr.ecr.us-east-1.amazonaws.com/nginxdemo:IMAGE_TAG_PLACEHOLDER",
-            "cpu": 0,
-            "portMappings": [
-                {
-                    "containerPort": 80,
-                    "hostPort": 80,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": []
+          "containerPort": 80,
+          "hostPort": 80
         }
-    ],
-    "family": "mynew-nginx-service",
-    "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2",
-    "networkMode": "awsvpc",
-    "revision": 2,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
-    "cpu": "512",
-    "memory": "1024",
-    "registeredAt": "2023-10-20T05:29:50.478Z",
-    "registeredBy": "arn:aws:iam::514523777807:user/devops",
-    "tags": []
+      ]
+    }
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::514523777807:role/JeenkinsCICD_EC2"
 }
